@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <link rel="stylesheet" href="https://use.typekit.net/svb3fuh.css">
-  <title>Día del Perro</title>
+  <title>Día del Gato - Jardín Plaza</title>
   <style>
     * {
       margin: 0;
@@ -45,24 +45,34 @@
       pointer-events: none;
     }
 
-    .foto {
+    /* Contenedor que limita la imagen del gato */
+    .contenedor-foto {
       position: absolute;
-      top: 350px; /* 🎯 Ajusta aquí la posición vertical */
-      left: 452px; /* 🎯 Ajusta aquí la posición horizontal */
-      max-height: 336px;
-      border-radius: 2px;
+      top: 350px; /* 🎯 Ajusta la posición vertical */
+      left: 452px; /* 🎯 Ajusta la posición horizontal */
+      width: 300px; /* 🎯 Ajusta el tamaño del contenedor */
+      height: 300px;
+      overflow: hidden;
+      border-radius: 10px;
       box-shadow: 0 0 20px white;
+    }
+
+    .foto {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
     .nombre {
       position: absolute;
       top: 430px; /* 🎯 Ajusta aquí la posición vertical */
-      left: 33%; 
+      left: 33%;
       transform: translateX(-50%);
       font-size: 2.5em;
-      font-weight: Extra bold;
-	  font-family: "jaf-domus-titling-web", sans-serif;
-  font-style: normal;
+      font-weight: 800;
+      font-family: "jaf-domus-titling-web", sans-serif;
+      font-style: normal;
       text-shadow: 0 0 2px black;
       color: #ecd4db;
       white-space: nowrap;
@@ -80,7 +90,9 @@
 
     <!-- Contenido encima del video -->
     <div class="contenedor">
-      <img id="foto" class="foto" src="" alt="Peludo" />
+      <div class="contenedor-foto">
+        <img id="foto" class="foto" src="" alt="Gatito" />
+      </div>
       <div class="nombre" id="nombre"></div>
     </div>
   </div>
@@ -88,25 +100,26 @@
   <script>
     const url = 'https://script.googleusercontent.com/macros/echo?user_content_key=AehSKLjse6RTSM10tWNBeUhO3wIzCeFJBPIHzpm4ZNvYiMP3m56UV9DyfirmMHsqC1Dqa08d2o70MS9Dv4ZG5m6lNyHXjf1Verpq7SChlFRgt8PV9M4ux3HuubqiitGhUaDeriSbc_p5-URJVemAAW7UKuXxWlUgcaHHiTwq06wnl4vgLFoeFxW5kTwjBPNbKwqVYkF7aNaTku2nsPIkf-q6y-z0svMrAbZklwgkYzO2emAoEYrmDjOiRSdHqZxAh08UuiHGNZu716o6iYSgIyz46UMNuiMwAYSMpB_EvVeL&lib=M6Up0sq9BxshXe-Yrmbyfm6eEHa1C_Htb';
     let index = 0;
-    let peludos = [];
+    let gatitos = [];
 
     function mostrarSiguiente() {
-      if (peludos.length === 0) return;
+      if (gatitos.length === 0) return;
 
-      const perrito = peludos[index];
-      document.getElementById('foto').src = perrito.imagen;
-      document.getElementById('nombre').innerText = perrito.nombre.toUpperCase();
+      const gato = gatitos[index];
+      document.getElementById('foto').src = gato.imagen;
+      document.getElementById('nombre').innerText = gato.nombre.toUpperCase();
 
-      index = (index + 1) % peludos.length;
+      index = (index + 1) % gatitos.length;
     }
 
     fetch(url)
       .then(res => res.json())
       .then(data => {
-        peludos = data;
+        gatitos = data;
         mostrarSiguiente();
         setInterval(mostrarSiguiente, 10000);
       });
   </script>
 </body>
 </html>
+
