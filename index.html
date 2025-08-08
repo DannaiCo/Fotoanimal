@@ -102,6 +102,7 @@
   let gatitos = [];
   let orden = [];
   let index = 0;
+  let siguienteImagen = null; // Imagen precargada
 
   function mezclarArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -109,6 +110,14 @@
       [array[i], array[j]] = [array[j], array[i]];
     }
     return array;
+  }
+
+  function precargarSiguiente() {
+    if (gatitos.length === 0) return;
+    const siguienteIndex = (index + 1) % orden.length;
+    const gatoSiguiente = gatitos[orden[siguienteIndex]];
+    siguienteImagen = new Image();
+    siguienteImagen.src = gatoSiguiente.imagen; // Empieza a cargar en segundo plano
   }
 
   function mostrarSiguiente() {
@@ -123,6 +132,8 @@
       orden = mezclarArray([...Array(gatitos.length).keys()]);
       index = 0;
     }
+
+    precargarSiguiente(); // Prepara la siguiente imagen
   }
 
   fetch(url)
@@ -131,6 +142,7 @@
       gatitos = data;
       if (gatitos.length > 0) {
         orden = mezclarArray([...Array(gatitos.length).keys()]);
+        precargarSiguiente();
         mostrarSiguiente();
         setInterval(mostrarSiguiente, 20000); // 20 segundos
       }
@@ -138,6 +150,7 @@
 </script>
 </body>
 </html>
+
 
 
 
